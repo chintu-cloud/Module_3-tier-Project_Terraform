@@ -112,7 +112,11 @@ curl http://localhost
 
 ### Connect via Bastion
 ```bash
-ssh -i <your-key>.pem ec2-user@<frontend-private-ip>
+ssh -i <your-key>.pem ec2-user@<bastion-public-ip>
+sudo su -
+vi <keypair name>.pem
+chmod 400 <keypair name>.pem
+ssh -i <keypair name>.pem ec2-user@<backend-private-ip>
 sudo su -
 ```
 
