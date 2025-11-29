@@ -1,6 +1,8 @@
 
 
 # 💃✨ Runway of Cloud Architecture ✨💃
+<img width="1273" height="658" alt="Untitled Diagram drawio (1)" src="https://github.com/user-attachments/assets/1a55bc46-ac4b-4cd3-bdec-fa6ffacd4e11" />
+
 ### Terraforming the Perfect 3-Tier Style — Book Project Deployment
 
 ---
@@ -165,6 +167,7 @@ sudo cp -r build/* /var/www/html
 - Create alias record for **Frontend ALB** → `chintu.shop`  
 - Create alias record for **Backend ALB** (optional)  
 - Test domain in browser → should load frontend and connect to backend
+<img width="1920" height="1080" alt="Screenshot (251)" src="https://github.com/user-attachments/assets/4ae3cef0-6ebf-486f-9200-34bfbf509399" />
 
 ---
 
