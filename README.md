@@ -440,10 +440,6 @@ We’ll walk through creating the database, configuring connectivity, and verify
 
 ---
 
-## 🌐 Route 53 DNS
-- Create alias record for **Frontend ALB** → `chintu.shop`  
-- Create alias record for **Backend ALB** (optional)
-  Here’s a polished **README.md** file that documents the Route53 setup you described. I’ve structured it with clear headings, step-by-step instructions, and stylish formatting so it’s beginner-friendly yet professional:  
 
 # 🌐 Route53 Setup for chintu.shop
 
@@ -500,12 +496,7 @@ We will create **alias records** for both the **frontend** and **backend** load 
 - Run `nslookup chintu.shop` or `dig chintu.shop` to confirm DNS resolution.
 - Test application endpoints to ensure traffic is routed correctly to the ALBs.
 
----
 
-## 📌 Notes
-- Alias records are free of charge in Route53.
-- Alias records automatically update if the ALB’s IPs change.
-- You can add additional records (e.g., `CNAME`, `MX`) depending on your application needs.
 
 ---
 
@@ -519,12 +510,9 @@ We will create **alias records** for both the **frontend** and **backend** load 
 
 ### 🚀 Done!
 Your domain `chintu.shop` is now configured to route traffic to both **Frontend** and **Backend** ALBs using Route53 alias records.
-```
   
 - Test domain in browser → should load frontend and connect to backend
 <img width="1920" height="1080" alt="Screenshot (251)" src="https://github.com/user-attachments/assets/4ae3cef0-6ebf-486f-9200-34bfbf509399" />
-
----
 
 ## ✅ Verification Checklist
 - Bastion SSH works  
