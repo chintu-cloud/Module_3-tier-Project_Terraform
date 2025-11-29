@@ -168,9 +168,9 @@ ssh -i <keypair name>.pem ec2-user@<backend-private-ip>
 ```bash
        sudo su -
        yum install git -y
-       git clone https://github.com/chintu-cloud/Module_3-tier-Project_Terraform.git
+       git clone https://github.com/chintu-cloud/3-tier-architecture.git
        ls
-       cd 2nd10WeeksofCloudOps-main/
+       cd 3-tier-architecture/
        ls
 ```
 # then remove the unnecessary file
@@ -262,9 +262,9 @@ sudo su -
 
    //   Frontend deploy process
                    yum install git -y
-                   git clone https://github.com/CloudTechDevOps/2nd10WeeksofCloudOps-main.git
+                   git clone https://github.com/chintu-cloud/3-tier-architecture.git
                    ls
- 	               cd 2nd10WeeksofCloudOps-main/
+ 	               cd 3-tier-architecture/
  	               ls
 
  
