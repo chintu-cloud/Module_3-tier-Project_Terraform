@@ -287,9 +287,9 @@ Build & deploy:
 npm install
 npm run build
 sudo cp -r build/* /var/www/html
-     //  your frontend part is completed
+    
 ```
-
+ -->   your frontend part is completed
 ---
 
 ## 🎯 Frontend Target Group & Load Balancer
@@ -311,11 +311,9 @@ Goto Load balancer
           TG - backend-tg
           AZ - 1a, 1b
 
-``` 
+C
 - Check target health → must be **Healthy**  
 - Copy **Frontend ALB DNS** → Open in browser to see Bookstore app  
-
----
 
 
 
