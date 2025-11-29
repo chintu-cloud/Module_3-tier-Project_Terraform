@@ -166,11 +166,22 @@ ssh -i <keypair name>.pem ec2-user@<backend-private-ip>
 
 ### Configure Backend
 ```bash
-yum install git -y
-git clone https://github.com/chintu-cloud/Module_3-tier-Project_Terraform.git
-cd 2nd10WeeksofCloudOps-main/backend/
-vi .env
+               sudo su -
+               yum install git -y
+               git clone https://github.com/chintu-cloud/Module_3-tier-Project_Terraform.git
+               ls
+ 	           cd 2nd10WeeksofCloudOps-main/
+ 	           ls
 ```
+# then remove the unnecessary file
+# go to backend
+```
+ 	           cd backend/
+               vi .env
+```
+# go to .env file to set the correct configuration
+
+
 
 Set environment variables:
 ```
@@ -179,6 +190,7 @@ DB_USERNAME=admin
 DB_PASSWORD="chandan#1234"
 PORT=3306
 ```
+# after changes goto   esc --> :wq! --> enter
 
 Install dependencies:
 ```bash
@@ -190,12 +202,27 @@ npm install -g pm2
 pm2 start index.js --name node-app
 curl http://localhost
 ```
-
+# // hello response form server
 ---
 
 ## 🎯 Backend Target Group & Load Balancer
-- Create **Backend TG** → Register backend instance  
-- Create **Backend ALB** → Attach TG, map to public subnets  
+- Create **Backend TG** → Register backend instance
+- Register Target
+ ```
+             select - backend server
+             (Click) - Including as pending below     --> then save
+```
+ 
+- Create **Backend ALB** → Attach TG, map to public subnets
+```
+          vpc -  project-vpc
+          network maping - public-subnet-1a
+                           public-subnet-1b
+          SG - ALB-sg & backend-sg
+          TG - bastion-tg
+          AZ - 1a, 1b
+
+```  
 - Check target health → must be **Healthy**
 
 ---
@@ -214,14 +241,37 @@ sudo su -
 
 ### Configure Frontend
 ```bash
-yum install httpd -y
-systemctl start httpd
-systemctl enable httpd
-sudo dnf install -y nodejs
-yum install git -y
-git clone https://github.com/CloudTechDevOps/2nd10WeeksofCloudOps-main.git
-cd 2nd10WeeksofCloudOps-main/client/
-vi src/pages/config.js
+                   sudo su -
+                   vi <keypair name>.pem
+                   Chmod 400 <keypair name>
+    //  goto Frontend server & connect  then go SSH client copy & paste
+                   SSH client (copy code & paste)
+ 
+        connect Frontend
+                   sudo su -
+
+    //  install dependencies
+
+                   yum install httpd -y
+                   systemctl start httpd
+                   systemctl enable httpd
+ 
+   //  install nodejs
+
+                   sudo dnf install -y nodejs
+
+   //   Frontend deploy process
+                   yum install git -y
+                   git clone https://github.com/CloudTechDevOps/2nd10WeeksofCloudOps-main.git
+                   ls
+ 	               cd 2nd10WeeksofCloudOps-main/
+ 	               ls
+
+ 
+   //  edit the config.js
+
+                   vi client/src/pages/config.js
+
 ```
 
 Update API URL:
@@ -230,32 +280,204 @@ const API_BASE_URL = "http://<backend-loadbalancer-dns>";
 ```
 
 Build & deploy:
+****(Use npm run build: When preparing the app for deployment (e.g., to a server or hosting service like AWS, Netlify, or Vercel).
+    ( Use npm start: During development or to start the app in production (for backend apps).*****
+
 ```bash
 npm install
 npm run build
 sudo cp -r build/* /var/www/html
+     //  your frontend part is completed
 ```
 
 ---
 
 ## 🎯 Frontend Target Group & Load Balancer
-- Create **Frontend TG** → Register frontend instance  
-- Create **Frontend ALB** → Attach TG, map to public subnets  
+- Create **Frontend TG** → Register frontend instance
+- Goto Target Group    // for backend
+ ```
+             Register Target
+             select - frontend server
+             (Click) - Including as pending below     // then save
+ ```
+- Create **Frontend ALB** → Attach TG, map to public subnets
+```
+Goto Load balancer
+ 
+          vpc -  project-vpc
+          network maping - public-subnet-1a
+                           public-subnet-1b
+          SG - ALB-sg & backend-sg
+          TG - backend-tg
+          AZ - 1a, 1b
+
+``` 
 - Check target health → must be **Healthy**  
 - Copy **Frontend ALB DNS** → Open in browser to see Bookstore app  
 
 ---
 
-## 🗄️ RDS Setup
-- Create **Subnet Group** → Private subnets across AZs  
-- Create **Database** → MySQL/MariaDB with DB SG  
-- Use endpoint in backend `.env`
+
+
+# 🗄️ Amazon RDS Setup Guide
+
+This guide explains how to set up an **Amazon RDS instance** for your application.  
+We’ll walk through creating the database, configuring connectivity, and verifying access.
+
+---
+
+## 📖 Prerequisites
+- AWS account with appropriate IAM permissions
+- VPC and subnets configured (preferably private subnets for RDS)
+- Security groups created for database access
+- Application requirements (e.g., MySQL, PostgreSQL, or other supported engines)
+
+---
+
+## ⚙️ Steps to Create RDS Instance
+
+### 1. Navigate to RDS
+- Go to the **AWS Management Console**
+- Open **RDS** service
+
+---
+
+### 2. Create Database
+1. Click **Create database**
+2. Select:
+   - **Engine type** → Choose (e.g., MySQL, PostgreSQL, MariaDB, Oracle, SQL Server)
+   - **Version** → Latest stable version recommended
+   - **Template** → `Production` or `Dev/Test` depending on use case
+
+---
+
+### 3. Configure Settings
+- **DB instance identifier** → e.g., `chintu-db`
+- **Master username** → e.g., `admin`
+- **Master password** → Set a strong password
+
+---
+
+### 4. Instance Configuration
+- **DB instance class** → Choose based on workload (e.g., `db.t3.micro` for testing, `db.m5.large` for production)
+- **Storage type** → General Purpose (SSD) or Provisioned IOPS
+- **Allocated storage** → e.g., 20 GB (scalable)
+
+---
+
+### 5. Connectivity
+- **VPC** → Select your application VPC
+- **Subnets** → Choose private subnets (recommended)
+- **Security group** → Allow inbound traffic from application servers
+- **Public access** → `No` (recommended for production)
+
+---
+
+### 6. Additional Configurations
+- **Database authentication** → Password or IAM-based
+- **Backup** → Enable automated backups
+- **Monitoring** → Enable CloudWatch monitoring
+- **Maintenance** → Configure maintenance window
+
+---
+
+### 7. Create Database
+- Review all settings
+- Click **Create database**
+- Wait for the instance status to become **Available**
+
+---
+
+## ✅ Verification
+- Copy the **endpoint** from the RDS console
+- Test connectivity using a client:
+  ```bash
+  mysql -h <rds-endpoint> -u admin -p
+
 
 ---
 
 ## 🌐 Route 53 DNS
 - Create alias record for **Frontend ALB** → `chintu.shop`  
-- Create alias record for **Backend ALB** (optional)  
+- Create alias record for **Backend ALB** (optional)
+  Here’s a polished **README.md** file that documents the Route53 setup you described. I’ve structured it with clear headings, step-by-step instructions, and stylish formatting so it’s beginner-friendly yet professional:  
+
+# 🌐 Route53 Setup for chintu.shop
+
+This guide explains how to configure **Amazon Route53** to point your domain `chintu.shop` to Application Load Balancers (ALBs) in **us-east-1**.  
+We will create **alias records** for both the **frontend** and **backend** load balancers.
+
+---
+
+## 📖 Prerequisites
+- Domain name registered in Route53 (`chintu.shop`)
+- Application Load Balancers created in **us-east-1** region:
+  - **Frontend LB**
+  - **Backend LB**
+- Proper IAM permissions to manage Route53 and ALB
+
+---
+
+## ⚙️ Steps
+
+### 1. Navigate to Route53
+- Go to the **AWS Management Console**
+- Open **Route53**
+- Select your hosted zone for `chintu.shop`
+
+---
+
+### 2. Create Alias Record for Frontend LB
+1. Click **Create record**
+2. Choose:
+   - **Record type** → `A – Routes traffic to an IPv4 address and some AWS resources`
+   - **Alias** → `Yes`
+3. Configure alias:
+   - **Route traffic to** → `Application Load Balancer`
+   - **Region** → `us-east-1`
+   - **Load balancer** → Select **Frontend LB**
+4. Save the record.
+
+---
+
+### 3. Create Alias Record for Backend LB
+1. Click **Create record**
+2. Choose:
+   - **Record type** → `A – Routes traffic to an IPv4 address and some AWS resources`
+   - **Alias** → `Yes`
+3. Configure alias:
+   - **Route traffic to** → `Application Load Balancer`
+   - **Region** → `us-east-1`
+   - **Load balancer** → Select **Backend LB**
+4. Save the record.
+
+---
+
+## ✅ Verification
+- Run `nslookup chintu.shop` or `dig chintu.shop` to confirm DNS resolution.
+- Test application endpoints to ensure traffic is routed correctly to the ALBs.
+
+---
+
+## 📌 Notes
+- Alias records are free of charge in Route53.
+- Alias records automatically update if the ALB’s IPs change.
+- You can add additional records (e.g., `CNAME`, `MX`) depending on your application needs.
+
+---
+
+## 🗂 Example Record Structure
+| Domain        | Type | Alias Target            | Region     | Load Balancer |
+|---------------|------|-------------------------|------------|---------------|
+| chintu.shop   | A    | Application Load Balancer | us-east-1 | Frontend LB   |
+| chintu.shop   | A    | Application Load Balancer | us-east-1 | Backend LB    |
+
+---
+
+### 🚀 Done!
+Your domain `chintu.shop` is now configured to route traffic to both **Frontend** and **Backend** ALBs using Route53 alias records.
+```
+  
 - Test domain in browser → should load frontend and connect to backend
 <img width="1920" height="1080" alt="Screenshot (251)" src="https://github.com/user-attachments/assets/4ae3cef0-6ebf-486f-9200-34bfbf509399" />
 
