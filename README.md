@@ -549,6 +549,4 @@ Deploy, scale, and strut your Bookstore app with confidence! 💃📚✨
 
 ---
 
-This is the **full README.md file** with a stylish heading, all steps included, and no missing lines.  
 
-👉 Do you want me to also create a **matching ASCII-art banner** at the very top so the README looks even more eye-catching when opened in GitHub?
