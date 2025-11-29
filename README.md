@@ -11,7 +11,97 @@
 This project provisions a **3-tier AWS architecture** using Terraform and deploys a **Bookstore application** with backend + frontend servers, RDS database, and secure access via a Bastion host.  
 It includes **Load Balancers, Target Groups, Route 53 DNS**, and step-by-step deployment instructions.
 
+
+
 ---
+
+## 📁 Full Project Structure with README.md
+
+```plaintext
+Module_3-tier-Project_Terraform/
+├── README.md                        # 📘 Full deployment guide with stylish heading
+├── terraform.tfvars                # Global variable values
+├── provider.tf                     # AWS provider configuration
+├── main.tf                         # Root orchestration (calls child modules)
+├── output.tf                       # Global outputs
+├── CHILD/                          # Optional nested module or orchestration layer
+│   ├── .terraform/                 # Terraform internal state
+│   ├── .terraform.lock.hcl
+│   └── main.tf
+│
+├── modules/                        # 📦 Modular infrastructure components
+│   ├── VPC/
+│   │   ├── main.tf
+│   │   ├── output.tf
+│   │   ├── provider.tf
+│   │   ├── security-group.tf
+│   │   ├── terraform.tfvars
+│   │   └── variable.tf
+│
+│   ├── RDS/
+│   │   ├── data.tf
+│   │   ├── output.tf
+│   │   ├── provider.tf
+│   │   ├── rds.tf
+│   │   ├── terraform.tfvars
+│   │   └── variable.tf
+│
+│   ├── ASG/
+│   │   ├── main.tf
+│   │   ├── output.tf
+│   │   ├── provider.tf
+│   │   └── variable.tf
+│
+│   ├── BASTION/
+│   │   └── main.tf
+│
+│   ├── LAUNCH-TEMPLATE/
+│   │   ├── main.tf
+│   │   ├── output.tf
+│   │   ├── provider.tf
+│   │   └── variable.tf
+│
+│   ├── LB-BACKEND/
+│   │   ├── main.tf
+│   │   ├── output.tf
+│   │   ├── provider.tf
+│   │   └── variable.tf
+│
+│   ├── LB-FRONTEND/
+│   │   ├── main.tf
+│   │   ├── output.tf
+│   │   ├── provider.tf
+│   │   └── variable.tf
+│
+│   └── ROUTE53/
+│       ├── main.tf
+│       ├── output.tf
+│       └── variable.tf
+│
+├── backend/                        # 🧠 Backend application
+│   ├── index.js
+│   ├── package.json
+│   ├── .env.example
+│   └── test.sql
+│
+├── frontend/                       # 🎨 Frontend application
+│   ├── client/
+│   │   ├── src/
+│   │   │   └── pages/
+│   │   │       └── config.js
+│   │   ├── package.json
+│   │   └── build/                 # Final React build copied to Apache
+│   └── deploy.sh                  # Optional deployment script
+│
+└── scripts/                        # 🔧 Utility scripts
+    ├── bastion-connect.sh         # SSH helper
+    └── cleanup.sh                 # Terraform destroy + manual cleanup
+```
+
+---
+
+
+
 
 ## 🛠️ Prerequisites
 - AWS account with permissions for VPC, EC2, RDS, ALB, Route 53
