@@ -544,7 +544,6 @@ terraform destroy
 ## 🎉 Stylish Closing
 This project is your **runway-ready cloud architecture** — blending infrastructure elegance with application performance.  
 Deploy, scale, and strut your Bookstore app with confidence! 💃📚✨
-```
 
 
 
