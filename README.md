@@ -8,8 +8,8 @@
 ---
 
 ## 📖 Overview
-This project provisions a **3-tier AWS architecture** using Terraform and deploys a **Bookstore application** with backend + frontend servers, RDS database, and secure access via a Bastion host.  
-It includes **Load Balancers, Target Groups, Route 53 DNS**, and step-by-step deployment instructions.
+✅ This project provisions a **3-tier AWS architecture** using Terraform and deploys a **Bookstore application** with backend + frontend servers, RDS database, and secure access via a Bastion host.  
+✅ It includes **Load Balancers, Target Groups, Route 53 DNS**, and step-by-step deployment instructions.
 
 
 
