@@ -330,7 +330,6 @@ select - frontend server
 
 ### 3. Create Frontend Application Load Balancer (ALB)
 - Go to **Load Balancer**
-- Click **Create Load Balancer**
 - Configure:
   - **VPC** → `project-vpc`
   - **Network mapping** → 
