@@ -35,7 +35,7 @@ resource "aws_db_instance" "book-rds" {
   skip_final_snapshot    = true
   vpc_security_group_ids = [var.rds_sg_id]
   publicly_accessible    = false
-  backup_retention_period = 1
+  backup_retention_period = 0
   db_subnet_group_name   = aws_db_subnet_group.rds-db-group.name
 
   tags = {
