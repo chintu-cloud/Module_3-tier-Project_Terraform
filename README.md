@@ -1,7 +1,7 @@
 
 
 # 💃✨ Runway of Cloud Architecture ✨💃
-<img width="1449" height="1200" alt="Untitled Diagram drawio (7)" src="https://github.com/user-attachments/assets/352d45b5-7d7c-44e4-8816-e4adba1d957f" />
+<img width="1600" height="950" alt="Untitled Diagram drawio (7)" src="https://github.com/user-attachments/assets/352d45b5-7d7c-44e4-8816-e4adba1d957f" />
 
 
 ### Terraforming the Perfect 3-Tier Style — Book Project Deployment
